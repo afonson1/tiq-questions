@@ -21,6 +21,7 @@ public class Question {
 		//Incremento no id do tipo "Questão"
 		Question.setId(Question.getId() + 1);
 		//Atribuição do id geral ao id da Questão
+		this.modalidade = modalidade;
 		this.setIdQuestao(Question.getId());
 		this.prova = prova;
 		this.setIntro(intro);
@@ -29,10 +30,11 @@ public class Question {
 	
 	/*Múltipla Escolha
 	Questão simples, com apenas uma introdução, um enunciado e nenhuma figura.*/
-	public Question (Prova prova, String intro, String enunciado, String opcaoA, String opcaoB,
+	public Question (String modalidade, Prova prova, String intro, String enunciado, String opcaoA, String opcaoB,
 					String opcaoC, String opcaoD, String opcaoE, char gabarito){
 		Question.setId(Question.getId() + 1);
 		this.setIdQuestao(Question.getId());
+		this.modalidade = modalidade;
 		this.prova = prova;
 		this.setIntro(intro);
 		this.enunciado = enunciado;
@@ -59,6 +61,14 @@ public class Question {
 
 	public void setIdQuestao(int idQuestao) {
 		this.idQuestao = idQuestao;
+	}
+	
+	public String getModalidade() {
+		return modalidade;
+	}
+
+	public void setModalidade(String modalidade) {
+		this.modalidade = modalidade;
 	}
 	
 	public String getIntro() {
@@ -130,14 +140,26 @@ public class Question {
 		prova.imprimeProva();
 		System.out.println(getIntro());
 		System.out.println(getEnunciado());
+		if (getModalidade() == "CertoOuErrado"){
+			imprimeQuestaoCertoOuErrado();
+		}else{
+			if (getModalidade() == "MultiplaEscolha")
+				imprimeQuestãoMultiplaEscolha();
+			else
+				System.out.println("Não foi possível");
+		}
 	}
 
-	public String getModalidade() {
-		return modalidade;
-	}
 
-	public void setModalidade(String modalidade) {
-		this.modalidade = modalidade;
+	public void imprimeQuestaoCertoOuErrado(){
+		System.out.println("(  ) Certo\n(  ) Errado");
 	}
-
+	
+	public void imprimeQuestãoMultiplaEscolha(){
+		System.out.println("a) " + getOpcaoA() +
+			"\nb) " + getOpcaoB() +
+			"\nc) " + getOpcaoC() +
+			"\nd) " + getOpcaoD() +
+			"\ne) " + getOpcaoE());
+	}
 }
